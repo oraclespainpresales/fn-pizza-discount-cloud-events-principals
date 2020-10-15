@@ -49,14 +49,13 @@ public class DiscountCampaignUploader {
             ObjectStorageClient objStoreClient              = ObjectStorageClient.builder().build(authProvider);
             GetObjectResponse jsonFile                      = objStoreClient.getObject(jsonFileRequest);
 
-            StringBuilder jsonfileUrl = new StringBuilder(objectStorageURLBase)
-                    .append(additionalDetails.get("resourceId"));
-                    /*.append("/n/")
+            StringBuilder jsonfileUrl = new StringBuilder(objectStorageURLBase)                    
+                    .append("/n/")
                     .append(additionalDetails.get("namespace"))
                     .append("/b/")
                     .append(additionalDetails.get("bucketName"))
                     .append("/o/")
-                    .append(data.get("resourceName"));*/
+                    .append(data.get("resourceName"));
 
             System.out.println("JSON FILE:: " + jsonfileUrl.toString());
             //InputStream isJson = new URL(jsonfileUrl.toString()).openStream();
