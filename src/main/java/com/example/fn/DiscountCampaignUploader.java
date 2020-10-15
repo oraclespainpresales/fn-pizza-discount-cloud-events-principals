@@ -29,9 +29,9 @@ public class DiscountCampaignUploader {
 
     public String handleRequest(CloudEvent event) {
         String responseMess         = "";
-        String objectStorageURLBase = System.getenv().get("OBJECT_STORAGE_URL_BASE");
-        String invokeEndpointURL    = System.getenv().get("INVOKE_ENDPOINT_URL");
-        String functionId           = System.getenv().get("UPLOAD_FUNCTION_ID");
+        String objectStorageURLBase = System.getenv("OBJECT_STORAGE_URL_BASE");
+        String invokeEndpointURL    = System.getenv("INVOKE_ENDPOINT_URL");
+        String functionId           = System.getenv("UPLOAD_FUNCTION_ID");
 
         try {
             //get upload file properties like namespace or buckername.
@@ -50,12 +50,13 @@ public class DiscountCampaignUploader {
             GetObjectResponse jsonFile                      = objStoreClient.getObject(jsonFileRequest);
 
             StringBuilder jsonfileUrl = new StringBuilder(objectStorageURLBase)
-                    .append("/n/")
+                    .append("resourceId");
+                    /*.append("/n/")
                     .append(additionalDetails.get("namespace"))
                     .append("/b/")
                     .append(additionalDetails.get("bucketName"))
                     .append("/o/")
-                    .append(data.get("resourceName"));
+                    .append(data.get("resourceName"));*/
 
             System.out.println("JSON FILE:: " + jsonfileUrl.toString());
             //InputStream isJson = new URL(jsonfileUrl.toString()).openStream();
