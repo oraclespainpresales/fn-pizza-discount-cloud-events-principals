@@ -2,6 +2,7 @@ package com.example.fn;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oracle.bmc.auth.BasicAuthenticationDetailsProvider;
+import com.oracle.bmc.auth.ConfigFileAuthenticationDetailsProvider;
 import com.oracle.bmc.auth.ResourcePrincipalAuthenticationDetailsProvider;
 import com.oracle.bmc.functions.FunctionsInvokeClient;
 import com.oracle.bmc.functions.requests.InvokeFunctionRequest;
@@ -44,7 +45,7 @@ public class DiscountCampaignUploader {
                             .objectName(data.get("resourceName").toString())
                             .build();
 
-            BasicAuthenticationDetailsProvider authProvider = ResourcePrincipalAuthenticationDetailsProvider.builder().build();
+            BasicAuthenticationDetailsProvider authProvider = getAuthProvider();
             ObjectStorageClient objStoreClient              = ObjectStorageClient.builder().build(authProvider);
             GetObjectResponse jsonFile                      = objStoreClient.getObject(jsonFileRequest);
 
@@ -75,6 +76,32 @@ public class DiscountCampaignUploader {
             ex.printStackTrace();
         }
         return responseMess;
+    }
+
+    /* 
+     *
+    We’ll use a ResourcePrincipalAuthenticationDetailsProvider if we’re running  on the Oracle Cloud, 
+    otherwise we’ll use a ConfigFileAuthenticationDetailsProvider when running locally.
+    *
+    */
+    private BasicAuthenticationDetailsProvider getAuthProvider() throws IOException {
+        BasicAuthenticationDetailsProvider provider = null;
+        String version                              = System.getenv("OCI_RESOURCE_PRINCIPAL_VERSION");
+
+        System.out.println("Version Resource Principal: " + version);
+        if( version != null ) {
+            provider = ResourcePrincipalAuthenticationDetailsProvider.builder().build();
+        }
+        else {
+            try {
+                provider = new ConfigFileAuthenticationDetailsProvider("/.oci/config", "DEFAULT");
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return provider;
     }
 
     private String invokeCreateCampaingFunction (BasicAuthenticationDetailsProvider authProvider, String invokeEndpointURL, String functionId, String payload) throws IOException {
