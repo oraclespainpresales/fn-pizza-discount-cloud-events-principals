@@ -1,0 +1,20 @@
+{
+  "campaigns": [
+    {
+    "demozone": "MADRID",
+    "paymentmethod": "VISA",
+    "date_bgn": "2020-01-21T00:00:00Z",
+    "date_end": "2020-01-22T00:00:00Z",
+    "min_amount": "5",
+    "discount": "10"
+    },
+    {
+    "demozone": "MADRID",
+    "paymentmethod": "AMEX",
+    "date_bgn": "2020-01-21T00:00:00Z",
+    "date_end": "2020-01-22T00:00:00Z",
+    "min_amount": "5",
+    "discount": "10"
+    }
+  ]
+}
