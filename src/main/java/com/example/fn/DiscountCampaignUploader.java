@@ -50,7 +50,7 @@ public class DiscountCampaignUploader {
             GetObjectResponse jsonFile                      = objStoreClient.getObject(jsonFileRequest);
 
             StringBuilder jsonfileUrl = new StringBuilder(objectStorageURLBase)
-                    .append("resourceId");
+                    .append(additionalDetails.get("resourceId"));
                     /*.append("/n/")
                     .append(additionalDetails.get("namespace"))
                     .append("/b/")
