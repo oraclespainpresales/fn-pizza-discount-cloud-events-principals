@@ -1,4 +1,4 @@
-fn-pizza-discount-cloud-events.git
+fn-pizza-discount-cloud-events-principals.git
 
 git repo with cloud events fn function to upload discount campaign JSON files and trigger to ATP.
 Oci config files required to access to Object Storage and invoke other functions are copied from Developer Cloud Service oci cli setup pipeline.
